@@ -76,3 +76,12 @@ jobs:
             -Dsonar.projectKey=razuoss_${{ github.event.repository.name }} \
             -Dsonar.organization=razuoss \
             -Dsonar.host.url=https://sonarcloud.io
+
+  semgrep-sast:
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - name: Semgrep SAST
+        run: semgrep scan --config auto --config p/owasp-top-ten --error .   
